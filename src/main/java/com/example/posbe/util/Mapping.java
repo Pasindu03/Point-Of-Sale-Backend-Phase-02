@@ -1,7 +1,7 @@
 package com.example.posbe.util;
 
-import com.example.posbe.dto.custom.impl.CustomerDto;
-import com.example.posbe.entity.impl.Customer;
+import com.example.posbe.dto.custom.impl.*;
+import com.example.posbe.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +27,55 @@ public class Mapping {
         return modelMapper.map(customerList, new TypeToken<List<CustomerDto>>() {}.getType());
     }
 
+    //User DTO, Entity & List of Users
+    public User toUserEntity(UserDto dto) {
+        return modelMapper.map(dto, User.class);
+    }
+
+    public UserDto toUserDto(User user){
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    public List<UserDto> asUserDto(List<User> userList) {
+        return modelMapper.map(userList, new TypeToken<List<UserDto>>() {}.getType());
+    }
+
     //Item DTO, Entity & List of Items
+    public Item toItemEntity(ItemDto dto){
+        return modelMapper.map(dto, Item.class);
+    }
+
+    public ItemDto toItemDto(Item item){
+        return modelMapper.map(item, ItemDto.class);
+    }
+
+    public List<ItemDto> asItemDto(List<Item> itemList) {
+        return modelMapper.map(itemList, new TypeToken<List<ItemDto>>() {}.getType());
+    }
 
     //Order DTO, Entity & List of Orders
+    public Order toOrderEntity(OrderDto dto){
+        return modelMapper.map(dto, Order.class);
+    }
+
+    public OrderDto toOrderDto(Order order){
+        return modelMapper.map(order, OrderDto.class);
+    }
+
+    public List<OrderDto> asOrderDto(List<Order> orderList){
+        return modelMapper.map(orderList, new TypeToken<List<OrderDto>>() {}.getType());
+    }
 
     //Order Details DTO, Entity & List of Order Details
+    public OrderDetail toOrderDetailEntity(OrderDetailDto dto){
+        return modelMapper.map(dto, OrderDetail.class);
+    }
+
+    public OrderDetailDto toOrderDetailDto(OrderDetail orderDetail){
+        return modelMapper.map(orderDetail, OrderDetailDto.class);
+    }
+
+    public List<OrderDetailDto> asOrderDetailDto(List<OrderDetail> orderDetailList){
+        return modelMapper.map(orderDetailList, new TypeToken<List<OrderDetail>>() {}.getType());
+    }
 }
