@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
             Customer selectedCustomer = dao.getReferenceById(id);
             return mapping.toCustomerDto(selectedCustomer);
         } else {
-            throw new SelectedCustomerErrorStatus(2, "Selected Customer Not Found");
+            return new SelectedCustomerErrorStatus(2, "Selected Customer Not Found");
         }
     }
 
