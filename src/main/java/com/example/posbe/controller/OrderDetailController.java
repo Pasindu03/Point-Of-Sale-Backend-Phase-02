@@ -1,6 +1,11 @@
 package com.example.posbe.controller;
 
+import com.example.posbe.customStatusCode.SelectedOrderDetailErrorStatus;
+import com.example.posbe.customStatusCode.SelectedOrderErrorStatus;
+import com.example.posbe.dto.custom.OrderDetailStatus;
+import com.example.posbe.dto.custom.OrderStatus;
 import com.example.posbe.dto.custom.impl.OrderDetailDto;
+import com.example.posbe.exception.DataPersistException;
 import com.example.posbe.exception.OrderDetailNotFoundException;
 import com.example.posbe.service.OrderDetailService;
 import com.example.posbe.util.RegexUtil;
@@ -24,22 +29,19 @@ public class OrderDetailController {
         try {
             orderDetailService.saveOrderDetail(orderDetailDto);
             return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataPersistException d){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping(value = "/{orderDetailId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<OrderDetailDto> getOrderDetailById(@PathVariable("orderDetailId") String orderDetailId) {
-        if (!RegexUtil.isValidOrderDetailId(orderDetailId)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public OrderDetailStatus getOrderDetailById(@PathVariable("orderDetailId") String orderDetailId) {
+        if (!RegexUtil.isValidOrderDetailId(orderDetailId)){
+            return new SelectedOrderDetailErrorStatus(1, "Order Detail Not Found");
         }
-        try {
-            OrderDetailDto orderDetailDto = orderDetailService.getOrderDetailById(orderDetailId);
-            return new ResponseEntity<>(orderDetailDto, HttpStatus.OK);
-        } catch (OrderDetailNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return orderDetailService.getOrderDetailById(orderDetailId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,27 +51,33 @@ public class OrderDetailController {
 
     @PutMapping(value = "/{orderDetailId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateOrderDetail(@PathVariable("orderDetailId") String orderDetailId, @RequestBody OrderDetailDto orderDetailDto) {
-        if (!RegexUtil.isValidOrderDetailId(orderDetailId)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         try {
+            if (!RegexUtil.isValidOrderDetailId(orderDetailId)) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             orderDetailService.updateOrderDetail(orderDetailId, orderDetailDto);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (OrderDetailNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping(value = "/{orderDetailId}")
     public ResponseEntity<Void> deleteOrderDetail(@PathVariable("orderDetailId") String orderDetailId) {
-        if (!RegexUtil.isValidOrderDetailId(orderDetailId)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         try {
+            if (!RegexUtil.isValidOrderDetailId(orderDetailId)) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             orderDetailService.deleteOrderDetail(orderDetailId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (OrderDetailNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
