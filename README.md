@@ -1,5 +1,3 @@
-Here’s how you can extend your README with the API documentation section, integrating it into the existing structure:
-
 ---
 
 # Point of Sale Backend (Phase 02)
