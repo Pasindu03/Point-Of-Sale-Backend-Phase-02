@@ -11,13 +11,13 @@ This backend solution is built using Spring Boot, MySQL, and follows best practi
 - **Order Processing**: Place orders, view order history, and manage order details.
 - **Inventory Tracking**: Track and manage stock levels of products, including reorder levels and pricing.
 - **CRUD Operations**: Full support for Create, Read, Update, and Delete operations across all entities.
-- **DTOs & Entities**: Implementation of Data Transfer Objects (DTOs) for effective communication between client and server, and entities for database management.
+- **DTOs & Entities**: Implementation of Data Transfer Objects (DTOs) for effective communication between the client and server, and entities for database management.
 
 ## Technologies Used
 - **Backend Framework**: Spring Boot
 - **Database**: MySQL
 - **ORM**: Hibernate (JPA)
-- **API Documentation**: Swagger/OpenAPI (Optional)
+- **API Documentation**: POSTMAN Application - https://www.postman.com/speeding-escape-302843/workspace/point-of-sale-phase-02/collection/32456863-46661267-c44d-43c4-b127-cc9d80e7db2d?action=share&creator=32456863
 - **Build Tool**: Maven
 
 ### Prerequisites
