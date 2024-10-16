@@ -1,10 +1,7 @@
 package com.example.posbe.entity.impl;
 
 import com.example.posbe.entity.SuperEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +24,8 @@ public class Item implements SuperEntity {
 
     @Column(nullable = false)
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
