@@ -13,8 +13,5 @@ import java.util.List;
 public class UserDto implements UserStatus {
     private String userId;
     private String username;
-    private String email;
     private String password;
-    private List<CustomerDto> customerDto;
-    private List<ItemDto> itemDto;
 }

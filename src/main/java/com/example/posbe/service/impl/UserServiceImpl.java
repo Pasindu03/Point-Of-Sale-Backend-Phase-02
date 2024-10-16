@@ -3,10 +3,12 @@ package com.example.posbe.service.impl;
 import com.example.posbe.dto.custom.impl.UserDto;
 import com.example.posbe.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDto userDto) {
