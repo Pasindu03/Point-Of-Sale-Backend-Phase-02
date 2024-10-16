@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_details")
 public class OrderDetail implements SuperEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

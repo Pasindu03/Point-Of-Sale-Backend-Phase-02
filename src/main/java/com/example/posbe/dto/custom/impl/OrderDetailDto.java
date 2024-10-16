@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderDetailDto implements OrderDetailStatus {
     private Long id;
-    private String itemCode;
+    private ItemDto itemDto;
     private int quantity;
     private double unitPrice;
+    private Long orderId;
 }
