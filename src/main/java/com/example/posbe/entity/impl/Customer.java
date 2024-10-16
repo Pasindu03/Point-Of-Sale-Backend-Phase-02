@@ -14,7 +14,14 @@ import lombok.NoArgsConstructor;
 public class Customer implements SuperEntity {
     @Id
     private String customerId;
+
     private String customerName;
+
     private String customerAddress;
+
     private String customerPhone;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

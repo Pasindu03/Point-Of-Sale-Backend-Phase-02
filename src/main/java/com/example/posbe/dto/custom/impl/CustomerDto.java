@@ -15,5 +15,5 @@ public class CustomerDto implements CustomerStatus {
     private String customerName;
     private String customerAddress;
     private String customerPhone;
-    private List<OrderDto> orderDto;
+    private String userId;
 }

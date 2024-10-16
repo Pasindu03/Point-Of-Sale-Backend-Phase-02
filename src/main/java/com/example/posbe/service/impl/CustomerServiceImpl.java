@@ -13,11 +13,13 @@ import com.example.posbe.util.Mapping;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerDao dao;
@@ -28,32 +30,34 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void saveCustomer(CustomerDto dto) {
         dto.setCustomerId(AppUtil.generateCustomerId());
-        Customer savedCustomer = dao.save(mapping.toCustomerEntity(dto));
+        Customer customerEntity = mapping.toCustomerEntity(dto);
 
-        if (savedCustomer == null){
-            throw new DataPersistException("Customer has not saved");
+        Customer savedCustomer = dao.save(customerEntity);
+        if (savedCustomer == null) {
+            throw new DataPersistException("Customer has not been saved");
         }
     }
 
     @Override
     public void deleteCustomer(String id) {
         Optional<Customer> foundCustomer = dao.findById(id);
-
-        if (!foundCustomer.isPresent()){
+        if (!foundCustomer.isPresent()) {
             throw new CustomerNotFoundException("Customer Not Found");
         }
+
+        dao.deleteById(id);
     }
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        List<Customer> allCustomer = dao.findAll();
-        return mapping.asCustomerDto(allCustomer);
+        List<Customer> allCustomers = dao.findAll();
+        return mapping.asCustomerDto(allCustomers);
     }
 
     @SneakyThrows
     @Override
     public CustomerStatus getCustomer(String id) {
-        if (dao.existsById(id)){
+        if (dao.existsById(id)) {
             Customer selectedCustomer = dao.getReferenceById(id);
             return mapping.toCustomerDto(selectedCustomer);
         } else {
@@ -64,13 +68,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomer(CustomerDto dto, String id) {
         Optional<Customer> byId = dao.findById(id);
-
-        if (!byId.isPresent()){
+        if (!byId.isPresent()) {
             throw new CustomerNotFoundException("Customer Not Found");
         } else {
-            byId.get().setCustomerName(dto.getCustomerName());
-            byId.get().setCustomerAddress(dto.getCustomerAddress());
-            byId.get().setCustomerPhone(dto.getCustomerPhone());
+            Customer customerToUpdate = byId.get();
+            customerToUpdate.setCustomerName(dto.getCustomerName());
+            customerToUpdate.setCustomerAddress(dto.getCustomerAddress());
+            customerToUpdate.setCustomerPhone(dto.getCustomerPhone());
+
+            dao.save(customerToUpdate);
         }
     }
 }
