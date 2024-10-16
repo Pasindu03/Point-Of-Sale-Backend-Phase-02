@@ -301,9 +301,93 @@ This backend solution is built using Spring Boot, MySQL, and follows best practi
         "balance": 570.0
       }
     }
-    ``
+    ```
 
-`
+---
+
+### 4. **User API**
+
+#### 4.1 Create a User
+**Endpoint**: `POST /api/v1/users`
+
+- **Description**: Creates a new user for login purposes.
+- **Request Body**:
+    ```json
+    {
+      "username": "john_doe",
+      "password": "password123"
+    }
+    ```
+- **Response (201 Created)**:
+    ```json
+    {
+      "message": "User created successfully",
+      "user": {
+        "username": "john_doe",
+        "password": "password123"
+      }
+    }
+    ```
+
+#### 4.2 Get a Specific User
+**Endpoint**: `GET /api/v1/users/{username}`
+
+- **Description**: Retrieves a specific user's details.
+- **Response (200 OK)**:
+    ```json
+    {
+      "username": "john_doe",
+      "password": "password123"
+    }
+    ```
+
+---
+
+### 5. **OrderDetails API**
+
+#### 5.1 Create Order Detail
+**Endpoint**: `POST /api/v1/orderdetails`
+
+- **Description**: Creates a new order detail.
+- **Request Body**:
+    ```json
+    {
+      "orderId": "O-01",
+      "itemCode": "I00-001",
+      "quantity": 6,
+      "unitPrice": 100.0
+    }
+    ```
+- **Response (201 Created)**:
+    ```json
+    {
+      "message": "Order detail created successfully",
+      "orderDetail": {
+        "orderId": "O-01",
+        "itemCode": "I00-001",
+        "quantity": 6,
+        "unit
+
+Price": 100.0
+      }
+    }
+    ```
+
+#### 5.2 Get Order Details by Order
+**Endpoint**: `GET /api/v1/orderdetails/{orderId}`
+
+- **Description**: Retrieves details for a specific order.
+- **Response (200 OK)**:
+    ```json
+    [
+      {
+        "orderId": "O-01",
+        "itemCode": "I00-001",
+        "quantity": 6,
+        "unitPrice": 100.0
+      }
+    ]
+    ```
 
 ---
 
@@ -318,7 +402,3 @@ If you want to contribute to this project, please follow the steps below:
 
 ## License
 This project is licensed under the MIT License.
-
----
-
-This expanded documentation now includes specific API endpoints and their usage, which will help developers interact with the backend effectively.
