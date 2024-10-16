@@ -12,7 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDto implements OrderStatus {
     private Long orderId;
-    private String customerId;  // Assuming you have a customer entity
     private String orderDate;
-    private List<OrderDetailDto> orderDetailsDto;
+    private String customerId;
+    private String userId;
+    private List<OrderDetailDto> orderDetails;
 }
