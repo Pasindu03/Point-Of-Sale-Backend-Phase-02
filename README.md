@@ -363,7 +363,7 @@ This backend solution is built using Spring Boot, MySQL, and follows best practi
         "orderId": "O-01",
         "itemCode": "I00-001",
         "quantity": 6,
-        "unitPrice": 100.0"
+        "unitPrice": 100.0
       }
     }
     ```
